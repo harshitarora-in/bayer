@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:bayer/api/api_service.dart';
+import 'package:bayer/api/weather_api_service.dart';
 import 'package:bayer/contants.dart';
 import 'package:bayer/getlocation.dart';
 import 'package:bayer/methods.dart/date_methods.dart';
@@ -17,7 +17,7 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   dynamic aqiResponse;
-  dynamic weatherResponse;
+  dynamic _weatherResponse;
   dynamic forecastResponse;
   GetDates getDates = GetDates();
   GetLocation getLocation = GetLocation();
@@ -43,13 +43,13 @@ class _WeatherPageState extends State<WeatherPage> {
     setState(() {
       aqi = aqiMethods.getAqiStatus(aqiLevel);
       aqiColor = aqiMethods.getAqiStatusColor(aqiLevel);
-      temperature = weatherResponse['main']['temp'];
+      temperature = _weatherResponse['main']['temp'];
       sTemperature = temperature!.toStringAsFixed(1);
-      humidity = weatherResponse['main']['humidity'];
-      wind = weatherResponse['wind']['deg'];
-      city = weatherResponse['name'];
-      weather = weatherResponse['weather'][0]['main'];
-      imageNumber = weatherResponse['weather'][0]['icon'];
+      humidity = _weatherResponse['main']['humidity'];
+      wind = _weatherResponse['wind']['speed'];
+      city = _weatherResponse['name'];
+      weather = _weatherResponse['weather'][0]['main'];
+      imageNumber = _weatherResponse['weather'][0]['icon'];
       for (int i = 0; i < 7; i++) {
         forecastData[i] = forecastResponse['daily'][i]['temp']['day'];
         forecastIcon[i] = forecastResponse['daily'][i]['weather'][0]['icon'];
@@ -74,11 +74,11 @@ class _WeatherPageState extends State<WeatherPage> {
                 Constants.openWeatherKey);
     WeatherApiServices weatherApiCall = WeatherApiServices(
         url:
-            "https://api.openweathermap.org/data/2.5/weather?lat=28.66&lon=77.21&appid=c7af5988ba36e2d1e499452d312368e2&units=metric");
+            "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=c7af5988ba36e2d1e499452d312368e2&units=metric");
     WeatherApiServices forecastApiCall = WeatherApiServices(
         url:
-            "https://api.openweathermap.org/data/2.5/onecall?lat=27&lon=77&exclude=current,hourly,minutely,alerts&appid=c7af5988ba36e2d1e499452d312368e2&units=metric");
-    weatherResponse = await weatherApiCall.fetchWeatherData();
+            "https://api.openweathermap.org/data/2.5/onecall?lat=$latitude&lon=$longitude&exclude=current,hourly,minutely,alerts&appid=c7af5988ba36e2d1e499452d312368e2&units=metric");
+    _weatherResponse = await weatherApiCall.fetchWeatherData();
     aqiResponse = await aqiApiCall.fetchWeatherData();
     forecastResponse = await forecastApiCall.fetchWeatherData();
     updateUi();
@@ -273,10 +273,11 @@ class _WeatherPageState extends State<WeatherPage> {
             ),
             const SizedBox(height: 15),
             Container(
+              height: 400,
               padding: EdgeInsets.only(bottom: 40),
               width: MediaQuery.of(context).size.width,
               //height: MediaQuery.of(context).size.height,
-
+//TODO: add graph here
               decoration: const BoxDecoration(
                   color: kDarkBlue,
                   borderRadius: BorderRadius.only(

@@ -1,4 +1,6 @@
+import 'package:bayer/widgets/bottom_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import '../contants.dart';
 import 'homepage.dart';
@@ -11,43 +13,50 @@ List<Color> bgColorsList = [
 List<PageViewModel> introScreenPages() {
   return [
     PageViewModel(
-      decoration: const PageDecoration(
-          titleTextStyle:
-              TextStyle(fontFamily: 'poppins', color: kWhite, fontSize: 24),
-          bodyTextStyle:
-              TextStyle(fontFamily: 'poppins', color: kWhite, fontSize: 18),
-          imagePadding: EdgeInsets.only(top: 40),
+      decoration: PageDecoration(
+          titleTextStyle: GoogleFonts.inter(
+              color: kWhite, fontSize: 32, fontWeight: FontWeight.w600),
+          bodyTextStyle: GoogleFonts.inter(color: kWhite, fontSize: 24),
+          imagePadding: const EdgeInsets.only(top: 40),
           imageFlex: 2),
-      title: 'Hey this is first title',
-      body: 'This isbody text',
-      image: Image.asset('assets/images/1.png'),
-      //footer: const Text('Footer Text')
+      title: 'LATEST NEWS',
+      body: 'Get Notify with Latest News',
+      image: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 40.0),
+        child:
+            Image.asset('assets/images/resources.png', height: 300, width: 300),
+      ),
     ),
     PageViewModel(
-      decoration: const PageDecoration(
-          titleTextStyle:
-              TextStyle(fontFamily: 'poppins', color: kWhite, fontSize: 24),
-          bodyTextStyle:
-              TextStyle(fontFamily: 'poppins', color: kWhite, fontSize: 18),
-          imagePadding: EdgeInsets.only(top: 40),
+      decoration: PageDecoration(
+          titleTextStyle: GoogleFonts.inter(
+              color: kWhite, fontSize: 32, fontWeight: FontWeight.w600),
+          bodyTextStyle: GoogleFonts.inter(color: kWhite, fontSize: 24),
+          imagePadding: const EdgeInsets.only(top: 40),
           imageFlex: 2),
 
-      title: 'Hey this is first title',
-      body: 'This isbody text',
-      image: Image.asset('assets/images/2.png'),
+      title: 'PRODUCT DETAILS',
+      body: 'Get all products details and resources',
+      image: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 40.0),
+        child:
+            Image.asset('assets/images/moreinfo.png', height: 300, width: 300),
+      ),
       //footer: const Text('Footer Text')
     ),
     PageViewModel(
-      decoration: const PageDecoration(
-          titleTextStyle:
-              TextStyle(fontFamily: 'poppins', color: kWhite, fontSize: 24),
-          bodyTextStyle:
-              TextStyle(fontFamily: 'poppins', color: kWhite, fontSize: 18),
-          imagePadding: EdgeInsets.only(top: 40),
+      decoration: PageDecoration(
+          titleTextStyle: GoogleFonts.inter(
+              color: kWhite, fontSize: 32, fontWeight: FontWeight.w600),
+          bodyTextStyle: GoogleFonts.inter(color: kWhite, fontSize: 24),
+          imagePadding: const EdgeInsets.only(top: 40),
           imageFlex: 2),
-      title: 'Hey this is first title',
-      body: 'This isbody text',
-      image: Image.asset('assets/images/3.png'),
+      title: 'VERIFY PRODUCT',
+      body: 'Verify product by scanning QR code',
+      image: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 40.0),
+        child: Image.asset('assets/images/secure.png', height: 300, width: 300),
+      ),
       //footer: const Text('Footer Text')
     ),
   ];
@@ -112,7 +121,9 @@ class _IntroScreenState extends State<IntroScreen> {
       doneColor: kWhite,
       onDone: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => const CustomBottomNavigation()));
         // When done button is press
       },
       dotsFlex: 1,

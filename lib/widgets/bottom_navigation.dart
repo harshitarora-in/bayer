@@ -1,21 +1,21 @@
 import 'package:bayer/contants.dart';
 import 'package:bayer/pages/news_page.dart';
 import 'package:bayer/pages/scan.dart';
-import 'package:bayer/pages/notification_page.dart';
+import 'package:bayer/pages/calculate_page.dart';
 import 'package:bayer/pages/homepage.dart';
 import 'package:bayer/pages/weather_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
-class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({Key? key}) : super(key: key);
+class CustomBottomNavigation extends StatefulWidget {
+  const CustomBottomNavigation({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationState createState() => _BottomNavigationState();
+  _CustomBottomNavigationState createState() => _CustomBottomNavigationState();
 }
 
-class _BottomNavigationState extends State<BottomNavigation> {
+class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
   List pages = [
     const HomePage(),
     const WeatherPage(),
@@ -23,13 +23,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     const NewsPage(),
     const NotificationPage(),
   ];
-  List<String> titleText = [
-    'Bayer',
-    'Weather',
-    'Scan QR',
-    'News',
-    'Notification'
-  ];
+  List<String> titleText = ['Bayer', 'Weather', 'Scan QR', 'News', 'Calculate'];
   int temp = 0;
   @override
   Widget build(BuildContext context) {
@@ -37,6 +31,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         appBar: AppBar(
           backgroundColor: kDarkBlue,
           title: Text(titleText[temp]),
+          automaticallyImplyLeading: false,
         ),
         body: pages[temp],
         bottomNavigationBar: StyleProvider(
@@ -53,7 +48,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               TabItem(icon: CupertinoIcons.cloud_moon_rain, title: 'Weather'),
               TabItem(icon: CupertinoIcons.qrcode_viewfinder, title: 'Scan'),
               TabItem(icon: CupertinoIcons.news, title: 'News'),
-              TabItem(icon: CupertinoIcons.bell, title: 'Notification'),
+              TabItem(icon: Icons.calculate_outlined, title: 'Calculate'),
             ],
             initialActiveIndex: temp,
             onTap: (index) {
